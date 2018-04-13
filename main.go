@@ -1,28 +1,48 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
-func determineListenAddress() (string, error) {
-	port := os.Getenv("PORT")
-	if port == "" {
-		return "", fmt.Errorf("$PORT not set")
+func main() {
+	var entry string
+	var static string
+	var port string
+
+	flag.StringVar(&entry, "entry", "./assets/index.html", "entry point")
+	flag.StringVar(&static, "static", "./assets", "directory to serve static files")
+	flag.StringVar(&port, "port", "8080", "port to host server")
+	flag.Parse()
+
+	r := mux.NewRouter()
+
+	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir(static)))
+
+	r.PathPrefix("/").HandlerFunc(IndexHandler(entry))
+
+	serve := &http.Server{
+		Handler: handlers.LoggingHandler(os.Stdout, r),
+		Addr:    "127.0.0.1:" + port,
+
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
 	}
-	return ":" + port, nil
+
+	log.Fatal(serve.ListenAndServe())
 }
 
-func main() {
-	addr, err := determineListenAddress()
-	if err != nil {
-		log.Fatal(err)
+// IndexHandler handles index.html entry point
+func IndexHandler(entrypoint string) func(w http.ResponseWriter, r *http.Request) {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, entrypoint)
 	}
 
-	fs := http.FileServer(http.Dir("assets"))
-	http.Handle("/", fs)
-	log.Println("Starting Server...")
-	http.ListenAndServe(addr, nil)
+	return http.HandlerFunc(fn)
 }
