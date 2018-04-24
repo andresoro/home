@@ -1,35 +1,14 @@
-html, body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-
-    font-family: 'Open Sans', sans-serif;
-}
-
-.wrapper {
-    max-width: 50%;
-    display: flex;
-    flex-direction: row;
-    height: 80%;
-}
-
-.left, .right {
-    margin: 5px;
-    max-width: 50%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.left {
-    align-items: center;
-    justify-content: center;
-}
-
-.profile-picture {
-    border-radius: 50%;
-}
+#bio {
+    padding-top: 60px; }
+    #bio img {
+      border-radius: 20px; }
+    #bio p {
+      font-size: 20px; }
+    #bio nav {
+      padding-top: 10px; }
+      #bio nav a {
+        font-size: 16px;
+        padding: 0px 10px; }
+  
+  .main_content .col-md-4 a {
+    padding-right: 10px; }
