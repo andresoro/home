@@ -7,8 +7,10 @@ import (
 	"os"
 	"time"
 
+	_ "github.com/andresoro/home/statik"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/rakyll/statik/fs"
 )
 
 func main() {
@@ -16,15 +18,21 @@ func main() {
 	var static string
 	var port string
 
+	// Handle command input
 	flag.StringVar(&entry, "entry", "./assets/index.html", "entry point")
 	flag.StringVar(&static, "static", "./assets", "directory to serve static files")
 	flag.StringVar(&port, "port", "8080", "port to host server")
 	flag.Parse()
 
+	// Handle Static Assets
+	statikFS, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Handle routing
 	r := mux.NewRouter()
-
-	r.PathPrefix("/assets").Handler(http.FileServer(http.Dir(static)))
-
+	r.PathPrefix("/assets").Handler(http.FileServer(statikFS))
 	r.PathPrefix("/").HandlerFunc(IndexHandler(entry))
 
 	serve := &http.Server{
