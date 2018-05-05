@@ -15,12 +15,12 @@ import (
 
 func main() {
 	var entry string
-	var static string
+	//var static string
 	var port string
 
 	// Handle command input
 	flag.StringVar(&entry, "entry", "./assets/index.html", "entry point")
-	flag.StringVar(&static, "static", "./assets", "directory to serve static files")
+	// flag.StringVar(&static, "static", "./assets", "directory to serve static files")
 	flag.StringVar(&port, "port", "8080", "port to host server")
 	flag.Parse()
 
