@@ -35,6 +35,9 @@ func main() {
 	r.PathPrefix("/assets").Handler(http.FileServer(statikFS))
 	r.PathPrefix("/").HandlerFunc(IndexHandler(entry))
 
+	// testing feed functionality
+	r.PathPrefix("/feed").HandlerFunc(HandleFeed)
+
 	serve := &http.Server{
 		Handler: handlers.LoggingHandler(os.Stdout, r),
 		Addr:    "127.0.0.1:" + port,
