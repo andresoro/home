@@ -36,7 +36,7 @@ func main() {
 	r.PathPrefix("/").HandlerFunc(IndexHandler(entry))
 
 	// testing feed functionality
-	r.PathPrefix("/feed").HandlerFunc(HandleFeed)
+	r.PathPrefix("/feed/").HandlerFunc(HandleFeed())
 
 	serve := &http.Server{
 		Handler: handlers.LoggingHandler(os.Stdout, r),
