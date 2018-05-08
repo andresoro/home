@@ -4,16 +4,6 @@
 	"GodepVersion": "v80",
 	"Deps": [
 		{
-			"ImportPath": "github.com/gorilla/handlers",
-			"Comment": "v1.3.0",
-			"Rev": "90663712d74cb411cbef281bc1e08c19d1a76145"
-		},
-		{
-			"ImportPath": "github.com/gorilla/mux",
-			"Comment": "v1.6.1-10-gc0091a0",
-			"Rev": "c0091a029979286890368b4c7b301261e448e242"
-		},
-		{
 			"ImportPath": "github.com/rakyll/statik/fs",
 			"Comment": "v0.1.1-4-gfcdcb7b",
 			"Rev": "fcdcb7b85139b8b9ca1d8ef1d98d8593e90d117f"
